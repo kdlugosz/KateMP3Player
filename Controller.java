@@ -93,22 +93,6 @@ public class Controller implements Initializable {
 
     }
 
-    @FXML protected void handleBrowseAction(ActionEvent event) {
-        FileChooser findFiles = new FileChooser();
-        findFiles.setTitle("Add MP3 files to library");
-        findFiles.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(".mp3", "*.mp3"));
-        Stage temp = new Stage();
-        List<File> mp3 = findFiles.showOpenMultipleDialog(temp);  // tracks selected stored in list
-
-        if (mp3 != null) {
-            for (File file : mp3) {
-                organizeMyMusic.addFile(file);
-            }
-            libListing.setAll(organizeMyMusic.getTracks());
-        }
-
-    }
 
     /**
      * Plays selected song when Play button is pressed
@@ -122,6 +106,17 @@ public class Controller implements Initializable {
         nowPlaying.setText("Now Playing: " + trackPlaying.toString());
         organizeMyMusic.stopPlaying();
         organizeMyMusic.playTrack(index);}
+
+    /**
+     * Removes selected song when Remove button is pressed
+     * @param event click on Remove button
+     */
+    @FXML protected void handleRemoveAction(ActionEvent event) {
+        ObservableList<Integer> songToRemove = showFiles.getSelectionModel().getSelectedIndices();
+        int index = songToRemove.get(0);
+        organizeMyMusic.removeTrack(index);
+        libListing.setAll(organizeMyMusic.getTracks());
+    }
 
 
     /**

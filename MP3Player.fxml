@@ -21,14 +21,15 @@
         <Font style = "bold"/>
     </font>
     </Text>
-
+    
     <ListView fx:id="showFiles"
           GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
 
-    <HBox spacing="0" alignment="top_left"
+    <VBox spacing="255" alignment="top_left"
           GridPane.columnIndex="4" GridPane.rowIndex="2">
         <Button text="Browse for files" onAction="#handleBrowseAction"/>
-    </HBox>
+        <Button text="Remove selected file" onAction="#handleRemoveAction"/>
+    </VBox>
 
     <Label fx:id="nowPlaying" text="Now Playing: " GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
