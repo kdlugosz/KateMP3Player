@@ -1,0 +1,52 @@
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:controller="MP3Player.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+    <Text text = "mini music library" GridPane.columnIndex="0" GridPane.rowIndex="0"
+          GridPane.columnSpan="2">
+    <font>
+        <Font name="Century Gothic" size="40.0" />
+    </font>
+    </Text>
+
+    <Text text = "Music Library:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+          GridPane.columnSpan="3">
+    <font>
+        <Font style = "bold"/>
+    </font>
+    </Text>
+
+    <ListView fx:id="showFiles"
+          GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
+
+    <HBox spacing="0" alignment="top_left"
+          GridPane.columnIndex="4" GridPane.rowIndex="2">
+        <Button text="Browse for files" onAction="#handleBrowseAction"/>
+    </HBox>
+
+    <Label fx:id="nowPlaying" text="Now Playing: " GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+
+    <HBox spacing="2" alignment="top_left"
+          GridPane.columnIndex="0" GridPane.rowIndex="4">
+        <Button text="Play" onAction="#handlePlayAction">
+        </Button>
+        <Button text="Stop" onAction="#handlePauseAction"/>
+    </HBox>
+
+    <HBox spacing="2" alignment="top_right"
+          GridPane.columnIndex="4" GridPane.rowIndex="4">
+        <Button text="Exit" onAction="#handleExitAction">
+        </Button>
+    </HBox>
+
+    <stylesheets>
+        <URL value="@Style.css" />
+    </stylesheets>
+
+</GridPane>
