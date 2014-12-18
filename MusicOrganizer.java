@@ -18,6 +18,8 @@ public class MusicOrganizer
     private MusicPlayer player;
     // A reader that can read music files and load them as tracks.
     private TrackReader reader;
+    boolean paused = false;
+    int lastPlayed;
 
     /**
      * Create a MusicOrganizer
@@ -34,6 +36,14 @@ public class MusicOrganizer
 
     public MusicPlayer getPlayer(){
         return player;
+    }
+
+    public boolean isPaused(){
+        return player.isPaused();
+    }
+
+    public void resume(){
+        player.resumePlaying();
     }
 
     /**
@@ -80,17 +90,23 @@ public class MusicOrganizer
         tracks.add(track);
     }
 
+    public int getPaused(){
+        return lastPlayed;
+    }
+
     /**
      * Play a track in the collection.
      * @param index The index of the track to be played.
      */
     public void playTrack(int index)
     {
+        lastPlayed = index;
         if(indexValid(index)) {
             Track track = tracks.get(index);
             player.startPlaying(track.getFilename());
             System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
         }
+
     }
 
     /**
@@ -160,12 +176,15 @@ public class MusicOrganizer
         }
     }
 
+    public void pause() {
+        player.pause();
+    }
     /**
      * Stop the player.
      */
     public void stopPlaying()
     {
-        player.stop();
+        player.stopPlaying();
     }
 
     /**

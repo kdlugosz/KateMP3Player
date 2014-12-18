@@ -8,6 +8,8 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.advanced.AdvancedPlayer;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.player.advanced.PlaybackListener;
 
 /**
  * Provide basic playing of MP3 files via the javazoom library.
@@ -20,13 +22,17 @@ public class MusicPlayer
 {
     // The current player. It might be null.
     private AdvancedPlayer player;
+    boolean paused = false;
+    int pausedOnFrame = 0;
+    String myFile;
+
 
     /**
      * Constructor for objects of class MusicFilePlayer
      */
-    public MusicPlayer()
-    {
+    public MusicPlayer() {
         player = null;
+        paused = false;
     }
 
     /**
@@ -38,7 +44,7 @@ public class MusicPlayer
     {
         try {
             setupPlayer(filename);
-            player.play(500);
+            player.play();
         }
         catch(JavaLayerException e) {
             reportProblem(filename);
@@ -53,35 +59,70 @@ public class MusicPlayer
      * The method returns once the playing has been started.
      * @param filename The file to be played.
      */
-    public void startPlaying(final String filename)
-    {
-        try {
-            setupPlayer(filename);
-            Thread playerThread = new Thread() {
-                public void run()
-                {
-                    try {
-                        player.play(5000);
+    public void startPlaying(final String filename) {
+
+            try {
+                myFile = filename;
+                setupPlayer(filename);
+                player.setPlayBackListener(new PlaybackListener() {
+                    public void playbackFinished(PlaybackEvent event) {
+                        pausedOnFrame = event.getFrame();
+                        System.out.print("Paused");
                     }
-                    catch(JavaLayerException e) {
-                        reportProblem(filename);
+                });
+                Thread t = new Thread() {
+                    public void run() {
+                        try {
+                            player.play();
+                        } catch (JavaLayerException e) {
+                            reportProblem(filename);
+                        } finally {
+                            killPlayer();
+                        }
                     }
-                    finally {
-                        killPlayer();
-                    }
-                }
-            };
-            playerThread.setDaemon(true);
-            playerThread.start();
-        }
-        catch (Exception ex) {
-            reportProblem(filename);
-        }
+                };
+                t.setDaemon(true);      // (my addition)
+                t.start();
+                paused = false;
+            } catch (Exception ex) {
+                reportProblem(filename);
+            }
     }
 
-    public void stop()
+    public void resumePlaying()
+    {
+        paused = false;
+        setupPlayer(myFile);
+        player.setPlayBackListener(new PlaybackListener() {
+            public void playbackFinished(PlaybackEvent event) {
+                pausedOnFrame = event.getFrame();
+                System.out.print("Paused");
+            }
+        });
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    player.play();
+                } catch (JavaLayerException e) {
+                    reportProblem(myFile);
+                } finally {
+                    killPlayer();
+                }
+            }
+        };
+    }
+
+    public void pause()
+    {
+        paused = true;
+        killPlayer();
+    }
+
+
+    public void stopPlaying()
     {
         killPlayer();
+        pausedOnFrame = 0;
     }
 
     /**
@@ -150,4 +191,7 @@ public class MusicPlayer
         System.out.println("There was a problem playing: " + filename);
     }
 
+    public boolean isPaused(){
+        return !paused;
+    }
 }

@@ -36,6 +36,7 @@ public class Controller implements Initializable {
     ObservableList<Track> libListing = FXCollections.observableArrayList();
     @FXML Label nowPlaying = new Label();
     private Stage s = new Stage();
+    int currentlyPlaying = -1;
 
     public MusicPlayer getPlayer() {
         return organizeMyMusic.getPlayer();
@@ -92,21 +93,26 @@ public class Controller implements Initializable {
     }
 
     @FXML protected void handlePlayAction(ActionEvent event) {
-
         ObservableList<Integer> songToPlay = showFiles.getSelectionModel().getSelectedIndices();
-        System.out.print(songToPlay);
         int index = songToPlay.get(0);
+        currentlyPlaying = organizeMyMusic.getPaused();
+
+        if (index == currentlyPlaying && !organizeMyMusic.isPaused() )
+            organizeMyMusic.resume();
+
+        else {
+        System.out.print(songToPlay);
         Track trackPlaying = organizeMyMusic.getTrack(index);
         nowPlaying.setText("Now Playing: " + trackPlaying.toString());
         organizeMyMusic.stopPlaying();
-        organizeMyMusic.playTrack(index);
+        organizeMyMusic.playTrack(index);}
 
 
     }
 
     @FXML protected void handlePauseAction(ActionEvent event) {
 
-        organizeMyMusic.stopPlaying();
+        organizeMyMusic.pause();
         nowPlaying.setText("Now Playing:");
     }
 
