@@ -34,38 +34,7 @@ public class MusicOrganizer
         System.out.println();
     }
 
-    /**
-     * (Addition by KD)
-     * Gets the MusicPlayer associated with this MusicOrganizer
-     * @return player
-     */
-    public MusicPlayer getPlayer(){
-        return player;
-    }
 
-    /**
-     * (Addition by KD)
-     * Checks if player is paused (didn't use)
-     * @return true if the player is paused
-     */
-    public boolean isPaused(){
-        return player.isPaused();
-    }
-
-    /**
-     * (Addition by KD)
-     * Resumes playing if paused (didn't use)
-     */
-    public void resume(){
-        player.resumePlaying();
-    }
-
-    /**
-     * Returns the array list containing the tracks.
-     * (Added by Kate Dlugosz)
-     * @return the arrayList containing the tracks
-     */
-    public ArrayList<Track> getTracks() { return tracks;}
 
     /**
      * Returns a track
@@ -85,15 +54,7 @@ public class MusicOrganizer
         tracks.add(new Track(filename));
     }
 
-    /**
-     * Add a track file to the collection.
-     * (Added by Kate Dlugosz)
-     * @param file The file to be added.
-     */
-    public void addFile(File file) {
-        Track temp = reader.decodeDetails(file);
-        addTrack(temp);
-    }
+
 
     /**
      * Add a track to the collection.
@@ -104,14 +65,6 @@ public class MusicOrganizer
         tracks.add(track);
     }
 
-    /**
-     * (Added by KD)
-     * Returns the index of the paused song
-     * @return the index of the song that is paused
-     */
-    public int getPaused(){
-        return lastPlayed;
-    }
 
     /**
      * Play a track in the collection.
@@ -196,14 +149,6 @@ public class MusicOrganizer
     }
 
     /**
-     * (Added by KD)
-     * Pauses the MusicPlayer associated with this organizer.
-     */
-    public void pause() {
-        player.pause();
-    }
-
-    /**
      * Stop the player.
      */
     public void stopPlaying()
@@ -265,5 +210,65 @@ public class MusicOrganizer
         for(Track track : tempTracks) {
             addTrack(track);
         }
+    }
+
+    /**
+     * (Addition by KD)
+     * Gets the MusicPlayer associated with this MusicOrganizer
+     * @return player
+     */
+    public MusicPlayer getPlayer(){
+        return player;
+    }
+
+    /**
+     * (Addition by KD)
+     * Checks if player is paused (didn't use)
+     * @return true if the player is paused
+     */
+    public boolean isPaused(){
+        return player.isPaused();
+    }
+
+    /**
+     * (Addition by KD)
+     * Resumes playing if paused (didn't use)
+     */
+    public void resume(){
+        player.resumePlaying();
+    }
+
+    /**
+     * Returns the array list containing the tracks.
+     * (Added by Kate Dlugosz)
+     * @return the arrayList containing the tracks
+     */
+    public ArrayList<Track> getTracks() { return tracks;}
+
+    /**
+     * Add a track file to the collection.
+     * (Added by Kate Dlugosz)
+     * @param file The file to be added.
+     */
+    public void addFile(File file) {
+        Track temp = reader.decodeDetails(file);
+        addTrack(temp);
+    }
+
+    /**
+     * (Added by KD)
+     * Returns the index of the paused song
+     * @return the index of the song that is paused
+     */
+    public int getPaused(){
+        return lastPlayed;
+    }
+
+    /**
+     * (Added by KD)
+     * Pauses the MusicPlayer associated with this organizer.
+     */
+    public void pause() {
+        player.pause();
     }
 }

@@ -82,44 +82,6 @@ public class MusicPlayer
             }
     }
 
-    /**
-     * (Added by Kate Dlugosz)
-     * This method resumes playing if a song has been paused.
-     * (Not functional and not used)
-     */
-    public void resumePlaying()
-    {
-        paused = false;
-        setupPlayer(myFile);
-        player.setPlayBackListener(new PlaybackListener() {
-            public void playbackFinished(PlaybackEvent event) {
-                pausedOnFrame = event.getFrame();
-                System.out.print("Paused");
-            }
-        });
-        Thread t = new Thread() {
-            public void run() {
-                try {
-                    player.play();
-                } catch (JavaLayerException e) {
-                    reportProblem(myFile);
-                } finally {
-                    killPlayer();
-                }
-            }
-        };
-    }
-
-    /**
-     * (Added by Kate Dlugosz)
-     * This method pauses the player
-     * Buggy - not used
-     */
-    public void pause()
-    {
-        paused = true;
-        killPlayer();
-    }
 
     /**
      * Stops the player
@@ -203,4 +165,44 @@ public class MusicPlayer
     public boolean isPaused(){
         return paused;
     }
+
+    /**
+     * (Added by Kate Dlugosz)
+     * This method resumes playing if a song has been paused.
+     * (Not functional and not used)
+     */
+    public void resumePlaying()
+    {
+        paused = false;
+        setupPlayer(myFile);
+        player.setPlayBackListener(new PlaybackListener() {
+            public void playbackFinished(PlaybackEvent event) {
+                pausedOnFrame = event.getFrame();
+                System.out.print("Paused");
+            }
+        });
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    player.play();
+                } catch (JavaLayerException e) {
+                    reportProblem(myFile);
+                } finally {
+                    killPlayer();
+                }
+            }
+        };
+    }
+
+    /**
+     * (Added by Kate Dlugosz)
+     * This method pauses the player
+     * Buggy - not used
+     */
+    public void pause()
+    {
+        paused = true;
+        killPlayer();
+    }
+
 }

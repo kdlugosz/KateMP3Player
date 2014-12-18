@@ -73,6 +73,19 @@ public class Track
     {
         return artist + ": " + title + "  (file: " + filename + ")";
     }
+    
+    /**
+     * Set details of the track.
+     * @param artist The track's artist.
+     * @param title The track's title.
+     * @param filename The track file.
+     */
+    private void setDetails(String artist, String title, String filename)
+    {
+        this.artist = artist;
+        this.title = title;
+        this.filename = filename;
+    }
 
     /**
      * (Added by Kate Dlugosz)
@@ -87,18 +100,4 @@ public class Track
         else
             return filename;
     }
-
-    /**
-     * Set details of the track.
-     * @param artist The track's artist.
-     * @param title The track's title.
-     * @param filename The track file.
-     */
-    private void setDetails(String artist, String title, String filename)
-    {
-        this.artist = artist;
-        this.title = title;
-        this.filename = filename;
-    }
-
 }

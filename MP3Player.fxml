@@ -21,7 +21,7 @@
         <Font style = "bold"/>
     </font>
     </Text>
-    
+
     <ListView fx:id="showFiles"
           GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
 
