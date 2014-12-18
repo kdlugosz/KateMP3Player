@@ -34,14 +34,28 @@ public class MusicOrganizer
         System.out.println();
     }
 
+    /**
+     * (Addition by KD)
+     * Gets the MusicPlayer associated with this MusicOrganizer
+     * @return player
+     */
     public MusicPlayer getPlayer(){
         return player;
     }
 
+    /**
+     * (Addition by KD)
+     * Checks if player is paused (didn't use)
+     * @return true if the player is paused
+     */
     public boolean isPaused(){
         return player.isPaused();
     }
 
+    /**
+     * (Addition by KD)
+     * Resumes playing if paused (didn't use)
+     */
     public void resume(){
         player.resumePlaying();
     }
@@ -63,7 +77,7 @@ public class MusicOrganizer
     }
 
     /**
-     * Add a track file to the collection.
+     * Add a track file to the collection based on String
      * @param filename The file name of the track to be added.
      */
     public void addFile(String filename)
@@ -90,6 +104,11 @@ public class MusicOrganizer
         tracks.add(track);
     }
 
+    /**
+     * (Added by KD)
+     * Returns the index of the paused song
+     * @return the index of the song that is paused
+     */
     public int getPaused(){
         return lastPlayed;
     }
@@ -176,9 +195,14 @@ public class MusicOrganizer
         }
     }
 
+    /**
+     * (Added by KD)
+     * Pauses the MusicPlayer associated with this organizer.
+     */
     public void pause() {
         player.pause();
     }
+
     /**
      * Stop the player.
      */
@@ -213,6 +237,11 @@ public class MusicOrganizer
         return valid;
     }
 
+    /**
+     * (Original function by textbook authors)
+     * Adds .mp3 files contained in a folder to the track list
+     * @param folderName name of folder to read from
+     */
     private void readLibraryFromFolder(String folderName)
     {
         ArrayList<Track> tempTracks = reader.readTracks(folderName, ".mp3");
@@ -223,6 +252,10 @@ public class MusicOrganizer
         }
     }
 
+    /**
+     * (Slight variation by KD)
+     * Adds .mp3 files in the local directory to the track list.
+     */
     private void readLibrary()
     {
         String localDir = System.getProperty("user.dir");       // my alteration: always read local directory

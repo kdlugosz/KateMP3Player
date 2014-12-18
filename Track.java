@@ -75,6 +75,7 @@ public class Track
     }
 
     /**
+     * (Added by Kate Dlugosz)
      * Returns String value of track, for printing purposes
      * @return String version of the track
      */

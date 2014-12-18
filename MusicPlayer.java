@@ -64,12 +64,6 @@ public class MusicPlayer
             try {
                 myFile = filename;
                 setupPlayer(filename);
-                player.setPlayBackListener(new PlaybackListener() {
-                    public void playbackFinished(PlaybackEvent event) {
-                        pausedOnFrame = event.getFrame();
-                        System.out.print("Paused");
-                    }
-                });
                 Thread t = new Thread() {
                     public void run() {
                         try {
@@ -81,14 +75,18 @@ public class MusicPlayer
                         }
                     }
                 };
-                t.setDaemon(true);      // (my addition)
+                t.setDaemon(true);      // (my addition), makes sure thread stops when window closes
                 t.start();
-                paused = false;
             } catch (Exception ex) {
                 reportProblem(filename);
             }
     }
 
+    /**
+     * (Added by Kate Dlugosz)
+     * This method resumes playing if a song has been paused.
+     * (Not functional and not used)
+     */
     public void resumePlaying()
     {
         paused = false;
@@ -112,17 +110,23 @@ public class MusicPlayer
         };
     }
 
+    /**
+     * (Added by Kate Dlugosz)
+     * This method pauses the player
+     * Buggy - not used
+     */
     public void pause()
     {
         paused = true;
         killPlayer();
     }
 
-
+    /**
+     * Stops the player
+     */
     public void stopPlaying()
     {
         killPlayer();
-        pausedOnFrame = 0;
     }
 
     /**
@@ -191,7 +195,12 @@ public class MusicPlayer
         System.out.println("There was a problem playing: " + filename);
     }
 
+    /**
+     * (Added by Kate Dlugosz)
+     * Returns true if the player is paused
+     * @return paused
+     */
     public boolean isPaused(){
-        return !paused;
+        return paused;
     }
 }

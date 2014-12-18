@@ -20,7 +20,6 @@ public class Main extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
-        // Parent root = FXMLLoader.load(getClass().getResource("MP3Player.fxml"));
         final FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "MP3Player.fxml"
@@ -35,11 +34,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 475));
         primaryStage.show();
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent w) {
-                System.out.println("Stage is closing");
-            }
-        });
     }
 
 

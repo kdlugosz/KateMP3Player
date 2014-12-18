@@ -36,7 +36,7 @@
           GridPane.columnIndex="0" GridPane.rowIndex="4">
         <Button text="Play" onAction="#handlePlayAction">
         </Button>
-        <Button text="Stop" onAction="#handlePauseAction"/>
+        <Button text="Stop" onAction="#handleStopAction"/>
     </HBox>
 
     <HBox spacing="2" alignment="top_right"
