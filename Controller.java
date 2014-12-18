@@ -67,7 +67,8 @@ public class Controller implements Initializable {
         s.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent close) {
-                organizeMyMusic.stopPlaying();
+                System.out.print("Blah");
+                        organizeMyMusic.stopPlaying();
             }
         });
 

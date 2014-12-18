@@ -71,6 +71,7 @@ public class MusicPlayer
                     }
                 }
             };
+            playerThread.setDaemon(true);
             playerThread.start();
         }
         catch (Exception ex) {
